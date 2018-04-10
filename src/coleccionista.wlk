@@ -68,10 +68,41 @@
 object coleccionista {
 	
 	//TODO: Completar la implementacion de este objeto		
+	
+	const elementosDeArte = #{} 
+	
+	// agrega un elemento a la galería de elementos.
+	method agregarElemento(unElemento) {
+	 		elementosDeArte.add(unElemento)
+ 	}
 
-}
+	// elimina un elemento de la galería de elementos.
+	method quitarElemento(unElemento) {
+		elementosDeArte.remove(unElemento)
+	}
 
-
+	// devuelve todos los elementos de la galeria que son frágiles.
+	method objetosFragiles() = elementosDeArte.filter({elementoDeArte => elementoDeArte.esFragil()})
+		
+	// devuelve el objeto frágil de mayor valor.	
+		method objetoFragilMasCaro() = elementosDeArte.max({elementoDeArte => elementoDeArte.valor()})
+	
+	// devuelve la suma de los valores de todos los objetos frágiles de la galería.
+		method valorEnObjetosFragiles() = self.objetosFragiles().map({elementoDeArte => elementoDeArte.valor()}).sum()
+	
+	// devuelve la suma de los valores de todos los objetos de la galería que pertenecen a la categoría dada.
+		method valorEnCategoria(unaCategoria) = elementosDeArte.filter({elementoDeArte => elementoDeArte.categoria() == unaCategoria}).map({elementoDeArte => elementoDeArte.valor()}).sum()
+	
+	// indica si en la galería existe algún elemento que pertenezca a la categoría dada.
+		method existeElementoDe(unaCategoria) = elementosDeArte.any({elementoDeArte => elementoDeArte.categoria() == unaCategoria})
+	
+	// devuelve todas las categorías en las cuales el coleccionista posea al menos un elemento.
+		method categorias() = elementosDeArte.map({elementoDeArte => elementoDeArte.categoria()}).asSet()
+	
+	// indica si la colección sólo posee elementos valiosos. Un elemento es considerado valioso para el coleccionista si el valor supera $600
+	 	method todosValiosos() = elementosDeArte.all({elementoDeArte => elementoDeArte.valor() > 600})
+ 		}
+	
 //Objetos coleccionables (no es necesario modificarlos) 
 object soldadoDePlomo {
 	method esFragil() = true
@@ -109,7 +140,44 @@ object musica {
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
    //TODO Completar la implementacion de este objeto
+   	method esFragil() = estuche.esFragil()
+	method valor() = 10000 + microfono.valor()	
+	method categoria() = musica  
 }
 
 //TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
 
+object microfono {
+   //TODO Completar la implementacion de este objeto
+   	var property marca = gibson
+   	
+   	method valor() = marca.valor()
+
+}
+
+object estuche {
+   //TODO Completar la implementacion de este objeto
+   	var property tipo = rigido
+   	
+   	method esFragil() = tipo.esFragil() 
+}
+
+object gibson {
+	
+	method valor() = 1000
+}
+
+object diMarzio {
+	
+	method valor() = 800
+}
+
+object rigido {
+	
+	method esFragil() = false	
+}
+
+object flexible {
+	
+	method esFragil() = true
+}

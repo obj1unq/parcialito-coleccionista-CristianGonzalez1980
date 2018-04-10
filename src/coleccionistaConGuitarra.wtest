@@ -22,6 +22,7 @@ describe "test del coleccionista usando la guitarra"{
 	
 	test "valor usando microfonos Di Marzio" {
 		//TODO: tal vez necesites invocar más cosas aquí para configurar la guitarra
+		microfono.marca(diMarzio) 
 		assert.equals(10800, coleccionista.valorEnCategoria(musica))
 	}
 	
@@ -32,6 +33,7 @@ describe "test del coleccionista usando la guitarra"{
 	
 	test "Fragilidad con un estuche flexible" {
 		//TODO: tal vez necesites invocar más cosas aquí para configurar la guitarra
+		estuche.tipo(flexible)
 		assert.that(coleccionista.valorEnObjetosFragiles()>0)	
 	}
 }
